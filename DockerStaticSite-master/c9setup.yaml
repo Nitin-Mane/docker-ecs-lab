@@ -12,17 +12,29 @@ Resources:
   IDE:
     Type: AWS::Cloud9::EnvironmentEC2
     Properties:
+      # Define the GitHub repository to clone into the Cloud9 environment
       Repositories:
       - RepositoryUrl: https://github.com/bikrambora/devlabs2018.git
         PathComponent: ecsdocker
+
+      # Define the owner of the Cloud9 environment
       OwnerArn: !Sub "arn:aws:iam::${AWS::AccountId}:user/labStudent_1"
+
+      # Description for the Cloud9 environment
       Description: ecs-docker-lab
+
+      # Define the automatic stop time for the IDE based on AutoHibernateTimeout parameter
       AutomaticStopTimeMinutes:
         Ref: AutoHibernateTimeout
+
+      # Define the EC2 instance type for the Cloud9 environment based on EC2InstanceType parameter
       InstanceType:
         Ref: EC2InstanceType
+
+      # Define the name of the Cloud9 environment based on the stack name
       Name:
         Ref: AWS::StackName
+
 Outputs:
   Cloud9URL:
     Value:
@@ -30,4 +42,6 @@ Outputs:
       - ''
       - - https://console.aws.amazon.com/cloud9/home/environments/
         - Ref: IDE
-    Description: ecs docker lab
+
+    Description: URL to access the Cloud9 environment for the ecs-docker-lab
+
